@@ -1,9 +1,9 @@
-import { ImageIcon, Loader2 } from 'lucide-react'
-import { useState } from 'react'
-import type { ProjectMedia } from '../data/portfolio'
+import { ImageIcon, Loader2 } from "lucide-react";
+import { useState } from "react";
+import type { ProjectMedia } from "../data/portfolio";
 
 interface MediaPanelProps {
-  media: ProjectMedia
+  media: ProjectMedia;
 }
 
 function LoadingSpinner() {
@@ -11,14 +11,14 @@ function LoadingSpinner() {
     <div className="absolute inset-0 flex items-center justify-center bg-[#0D1117] z-10">
       <Loader2 size={32} className="text-[#58A6FF] animate-spin" />
     </div>
-  )
+  );
 }
 
 export function MediaPanel({ media }: MediaPanelProps) {
-  const [loading, setLoading] = useState(true)
+  const [loading, setLoading] = useState(true);
 
   const inner = () => {
-    if (media.type === 'image') {
+    if (media.type === "image") {
       return (
         <div className="relative w-full h-full">
           {loading && <LoadingSpinner />}
@@ -29,14 +29,15 @@ export function MediaPanel({ media }: MediaPanelProps) {
             onLoad={() => setLoading(false)}
           />
         </div>
-      )
+      );
     }
 
-    if (media.type === 'video' || media.type === 'mobile-video') {
+    if (media.type === "video" || media.type === "mobile-video") {
       return (
         <div className="relative w-full h-full">
           {loading && <LoadingSpinner />}
           <video
+            preload="metadata"
             src={media.src}
             autoPlay
             loop
@@ -46,10 +47,10 @@ export function MediaPanel({ media }: MediaPanelProps) {
             onLoadedData={() => setLoading(false)}
           />
         </div>
-      )
+      );
     }
 
-    if (media.type === 'url') {
+    if (media.type === "url") {
       return (
         <div className="relative w-full h-full">
           {loading && <LoadingSpinner />}
@@ -62,27 +63,37 @@ export function MediaPanel({ media }: MediaPanelProps) {
             onLoad={() => setLoading(false)}
           />
         </div>
-      )
+      );
     }
 
     return (
       <div className="flex flex-col items-center justify-center h-full gap-3 group cursor-default">
         <div className="w-20 h-20 rounded-xl bg-[#161b22] border border-[#30363d] flex items-center justify-center shadow-lg group-hover:border-[#58A6FF] transition-colors">
-          <ImageIcon size={32} className="text-gray-500 group-hover:text-[#58A6FF] transition-colors" />
+          <ImageIcon
+            size={32}
+            className="text-gray-500 group-hover:text-[#58A6FF] transition-colors"
+          />
         </div>
-        <p className="text-gray-400 text-sm font-medium">Screenshot / Video Demo</p>
-        <p className="text-gray-600 text-xs">Adicione sua mídia em /public e edite portfolio.ts</p>
+        <p className="text-gray-400 text-sm font-medium">
+          Screenshot / Video Demo
+        </p>
+        <p className="text-gray-600 text-xs">
+          Adicione sua mídia em /public e edite portfolio.ts
+        </p>
       </div>
-    )
-  }
+    );
+  };
 
   return (
     <div className="flex-1 bg-[#0D1117] relative overflow-hidden">
       <div
         className="absolute inset-0 opacity-10"
-        style={{ backgroundImage: 'radial-gradient(#30363d 1px, transparent 1px)', backgroundSize: '20px 20px' }}
+        style={{
+          backgroundImage: "radial-gradient(#30363d 1px, transparent 1px)",
+          backgroundSize: "20px 20px",
+        }}
       />
       <div className="relative w-full h-full">{inner()}</div>
     </div>
-  )
+  );
 }

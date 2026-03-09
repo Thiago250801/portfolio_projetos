@@ -118,7 +118,7 @@ export function ProjectSlide({ project, slideNumber }: ProjectSlideProps) {
                             </span>
                         </div>
                     </div>
-                    <MediaPanel media={project.media} />
+                    <MediaPanel key={project.id} media={project.media} />
                 </div>
 
                 {/* Floating icon */}
