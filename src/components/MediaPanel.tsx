@@ -1,42 +1,67 @@
-import { ImageIcon } from 'lucide-react'
+import { ImageIcon, Loader2 } from 'lucide-react'
+import { useState } from 'react'
 import type { ProjectMedia } from '../data/portfolio'
 
 interface MediaPanelProps {
   media: ProjectMedia
 }
 
-export function MediaPanel({ media }: MediaPanelProps) {
-  const inner = () => {
-    if (media.type === 'image') {
-      return <img src={media.src} alt="Screenshot do projeto" className="w-full h-full object-contain" />
-    }
-
-    if (media.type === 'video') {
-      return <video src={media.src} autoPlay loop muted playsInline className="w-full h-full object-contain" />
-    }
-
-if (media.type === 'mobile-video') {
+function LoadingSpinner() {
   return (
-    <video
-      src={media.src}
-      autoPlay
-      loop
-      muted
-      playsInline
-      className="w-full h-full object-contain"
-    />
+    <div className="absolute inset-0 flex items-center justify-center bg-[#0D1117] z-10">
+      <Loader2 size={32} className="text-[#58A6FF] animate-spin" />
+    </div>
   )
 }
 
+export function MediaPanel({ media }: MediaPanelProps) {
+  const [loading, setLoading] = useState(true)
+
+  const inner = () => {
+    if (media.type === 'image') {
+      return (
+        <div className="relative w-full h-full">
+          {loading && <LoadingSpinner />}
+          <img
+            src={media.src}
+            alt="Screenshot do projeto"
+            className="w-full h-full object-contain"
+            onLoad={() => setLoading(false)}
+          />
+        </div>
+      )
+    }
+
+    if (media.type === 'video' || media.type === 'mobile-video') {
+      return (
+        <div className="relative w-full h-full">
+          {loading && <LoadingSpinner />}
+          <video
+            src={media.src}
+            autoPlay
+            loop
+            muted
+            playsInline
+            className="w-full h-full object-contain"
+            onLoadedData={() => setLoading(false)}
+          />
+        </div>
+      )
+    }
+
     if (media.type === 'url') {
       return (
-        <iframe
-          src={media.href}
-          title="Demo do projeto"
-          className="w-full h-full border-0"
-          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-          allowFullScreen
-        />
+        <div className="relative w-full h-full">
+          {loading && <LoadingSpinner />}
+          <iframe
+            src={media.href}
+            title="Demo do projeto"
+            className="w-full h-full border-0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowFullScreen
+            onLoad={() => setLoading(false)}
+          />
+        </div>
       )
     }
 
