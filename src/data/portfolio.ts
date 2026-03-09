@@ -194,7 +194,7 @@ export const projects: Project[] = [
         // { type: 'image', src: '/screenshot.png' }
         // { type: 'video', src: '/demo.mp4' }
         // { type: 'url',   href: 'https://...' }
-        media: { type: 'video', src: '/media/wordpress.mp4' },
+        media: { type: 'video', src: '/media/dev_assistant.mp4' },
         floatingIcon: SquareTerminal,
         floatingIconColor: '#5FA04E',
     },  
