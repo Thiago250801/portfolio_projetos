@@ -1,4 +1,4 @@
-import { ExternalLink, Github, Code2, Lock, Layers, Smartphone, Globe, Box } from 'lucide-react'
+import { ExternalLink, Github, Lock, Layers, Smartphone, Globe, Box } from 'lucide-react'
 import type { Project } from '../data/portfolio'
 import { GlowBlob } from './GlowBlob'
 import { MediaPanel } from './MediaPanel'
